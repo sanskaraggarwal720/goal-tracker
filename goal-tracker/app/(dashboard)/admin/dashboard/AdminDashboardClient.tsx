@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import { CountUp } from '@/components/CountUp';
 
 export function AdminDashboardClient({ stats }: { stats: any }) {
   return (
@@ -33,22 +34,22 @@ export function AdminDashboardClient({ stats }: { stats: any }) {
             <div className="grid grid-cols-4 gap-4 mb-6">
               <div className="bg-[rgb(var(--card-bg))] border border-[rgb(var(--border))] rounded-xl p-5">
                 <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Avg completion</div>
-                <div className="text-3xl font-bold text-[rgb(var(--text))]">{stats.avgCompletion}%</div>
+                <div className="text-3xl font-bold text-[rgb(var(--text))]"><CountUp value={stats.avgCompletion} />%</div>
                 <div className="text-xs mt-2 font-medium text-green-600 dark:text-[#4B8B4B]">Organisation average</div>
               </div>
               <div className="bg-[rgb(var(--card-bg))] border border-[rgb(var(--border))] rounded-xl p-5">
                 <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Goals on track</div>
-                <div className="text-3xl font-bold text-[rgb(var(--text))]">{stats.goalsOnTrack}</div>
+                <div className="text-3xl font-bold text-[rgb(var(--text))]"><CountUp value={stats.goalsOnTrack} /></div>
                 <div className="text-xs mt-2 font-medium text-green-600 dark:text-[#4B8B4B]">Current snapshot</div>
               </div>
               <div className="bg-[rgb(var(--card-bg))] border border-[rgb(var(--border))] rounded-xl p-5">
                 <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Check-ins done</div>
-                <div className="text-3xl font-bold text-[rgb(var(--text))]">{stats.checkinsDone} <span className="text-sm text-gray-500 font-medium">/ {stats.totalEmployees * 2}</span></div>
+                <div className="text-3xl font-bold text-[rgb(var(--text))]"><CountUp value={stats.checkinsDone} /> <span className="text-sm text-gray-500 font-medium">/ <CountUp value={stats.totalEmployees * 2} /></span></div>
                 <div className="text-xs mt-2 font-medium text-gray-500 dark:text-gray-400">Total volume</div>
               </div>
               <div className="bg-[rgb(var(--card-bg))] border border-[rgb(var(--border))] rounded-xl p-5">
                 <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Escalations open</div>
-                <div className="text-3xl font-bold text-[rgb(var(--text))]">{stats.escalationsOpen}</div>
+                <div className="text-3xl font-bold text-[rgb(var(--text))]"><CountUp value={stats.escalationsOpen} /></div>
                 <div className="text-xs mt-2 font-medium text-green-600 dark:text-[#4B8B4B]">All clear</div>
               </div>
             </div>

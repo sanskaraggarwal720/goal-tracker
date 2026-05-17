@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 249 250 251;
+    --text: 17 24 39;
+    --sidebar-bg: 255 255 255;
+    --sidebar-text: 55 65 81;
+    --border: 229 231 235;
+    --card-bg: 255 255 255;
+    --card-border: 229 231 235;
+  }
+
+  .dark {
+    --bg: 18 18 18;
+    --text: 243 244 246;
+    --sidebar-bg: 37 37 37;
+    --sidebar-text: 209 213 219;
+    --border: 51 51 51;
+    --card-bg: 37 37 37;
+    --card-border: 51 51 51;
+  }
+}
+
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--text));
+}

@@ -17,7 +17,9 @@ const LINKS = {
     { label: 'Check-ins', href: '/manager/check-ins', icon: '👥' },
   ],
   admin: [
-    { label: 'Analytics', href: '/admin/dashboard', icon: '📈' },
+    { label: 'Command Center', href: '/admin/dashboard', icon: '⚡' },
+    { label: 'Advanced Analytics', href: '/admin/analytics', icon: '📈' },
+    { label: 'Escalations', href: '/admin/escalations', icon: '🚨' },
     { label: 'Shared Goals', href: '/admin/shared-goals', icon: '🔗' },
     { label: 'Reports', href: '/admin/reports', icon: '📄' },
     { label: 'Audit Trail', href: '/admin/audit-log', icon: '📝' },

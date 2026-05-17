@@ -655,3 +655,118 @@ export async function fetchAuditLogs() {
   
   return data;
 }
+
+export async function fetchAnalyticsReport() {
+  const supabase = createClient();
+  
+  // Get all goals, users, and achievements
+  const { data: goals } = await supabase.from('goals').select('id, employee_id, thrust_area_id, uom, target, target_date, status, weightage').eq('status', 'approved');
+  const { data: users } = await supabase.from('users').select('id, name, department').eq('role', 'employee');
+  const { data: achievements } = await supabase.from('achievements').select('goal_id, quarter, actual, actual_date, status');
+  const { data: thrustAreas } = await supabase.from('thrust_areas').select('id, name');
+
+  // 1. QoQ Trend (Average progress score for Q1, Q2, Q3, Q4)
+  const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
+  const qoqTrend = quarters.map(q => {
+    let qTotal = 0;
+    let qCount = 0;
+    if (goals && achievements) {
+      goals.forEach(g => {
+        const ach = achievements.find(a => a.goal_id === g.id && a.quarter === q);
+        if (ach) {
+          const prog = computeProgress(g.uom, (g.uom === 'timeline' ? g.target_date : g.target) as any, g.uom === 'timeline' ? ach.actual_date : ach.actual);
+          qTotal += prog;
+          qCount++;
+        }
+      });
+    }
+    return {
+      quarter: q,
+      avgProgress: qCount > 0 ? Math.round(qTotal / qCount) : 0,
+      goalsReported: qCount
+    };
+  });
+
+  // 2. Thrust Area Distribution
+  const thrustAreaDistribution = (thrustAreas || []).map(ta => {
+    const taGoals = (goals || []).filter(g => g.thrust_area_id === ta.id);
+    const totalWeight = taGoals.reduce((sum, g) => sum + Number(g.weightage), 0);
+    return {
+      name: ta.name,
+      count: taGoals.length,
+      totalWeightage: totalWeight
+    };
+  });
+
+  // 3. UoM Distribution
+  const uomCounts: Record<string, number> = {
+    'numeric_min': 0,
+    'numeric_max': 0,
+    'timeline': 0,
+    'zero': 0
+  };
+  (goals || []).forEach(g => {
+    if (uomCounts[g.uom] !== undefined) uomCounts[g.uom]++;
+  });
+  const uomDistribution = Object.entries(uomCounts).map(([uom, count]) => ({
+    uom: uom === 'numeric_min' ? 'Numeric (Min)' : uom === 'numeric_max' ? 'Numeric (Max)' : uom === 'timeline' ? 'Timeline' : 'Zero Target',
+    count
+  }));
+
+  // 4. Department Heatmap
+  const departments = Array.from(new Set((users || []).map(u => u.department).filter(Boolean)));
+  const departmentHeatmap = departments.map(dept => {
+    const deptUsers = (users || []).filter(u => u.department === dept).map(u => u.id);
+    const deptGoals = (goals || []).filter(g => deptUsers.includes(g.employee_id));
+
+    const scores: Record<string, number> = {};
+    quarters.forEach(q => {
+      let qTot = 0;
+      let qCnt = 0;
+      deptGoals.forEach(g => {
+        const ach = achievements?.find(a => a.goal_id === g.id && a.quarter === q);
+        if (ach) {
+          const prog = computeProgress(g.uom, (g.uom === 'timeline' ? g.target_date : g.target) as any, g.uom === 'timeline' ? ach.actual_date : ach.actual);
+          qTot += prog;
+          qCnt++;
+        }
+      });
+      scores[q] = qCnt > 0 ? Math.round(qTot / qCnt) : 0;
+    });
+
+    return {
+      department: dept,
+      ...scores
+    };
+  });
+
+  return {
+    qoqTrend,
+    thrustAreaDistribution,
+    uomDistribution,
+    departmentHeatmap
+  };
+}
+
+export async function fetchEscalations() {
+  const supabase = createClient();
+  const { data: escalations } = await supabase
+    .from('escalations')
+    .select(`
+      id,
+      type,
+      triggered_at,
+      resolved_at,
+      notified_level,
+      users:target_user_id (name, department),
+      goals:goal_id (title)
+    `)
+    .order('triggered_at', { ascending: false });
+
+  return escalations || [];
+}
+
+export async function resolveEscalation(id: string) {
+  const supabase = createClient();
+  await supabase.from('escalations').update({ resolved_at: new Date().toISOString() }).eq('id', id);
+}

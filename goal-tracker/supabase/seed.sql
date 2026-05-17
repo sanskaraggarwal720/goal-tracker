@@ -77,3 +77,8 @@ INSERT INTO public.checkins (goal_id, manager_id, quarter, comment) VALUES
 ('dd000000-0000-0000-0000-000000000001', '22222222-2222-2222-2222-222222222222', 'Q1', 'Good momentum, keep pushing the pipeline.'),
 ('dd000000-0000-0000-0000-000000000002', '22222222-2222-2222-2222-222222222222', 'Q1', 'TAT is still a bit high. Let us review the blockers next week.'),
 ('dd000000-0000-0000-0000-000000000004', '22222222-2222-2222-2222-222222222222', 'Q1', 'Excellent safety record.');
+
+-- 7. Escalations (Demo alerts)
+INSERT INTO public.escalations (id, type, target_user_id, goal_id, notified_level) VALUES
+('ee000000-0000-0000-0000-000000000001', 'checkin_pending', '44444444-4444-4444-4444-444444444444', 'dd000000-0000-0000-0000-000000000005', 2),
+('ee000000-0000-0000-0000-000000000002', 'goal_not_submitted', '55555555-5555-5555-5555-555555555555', NULL, 1);

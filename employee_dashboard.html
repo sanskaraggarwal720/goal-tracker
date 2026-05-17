@@ -1,0 +1,174 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-sans);}
+.sidebar{position:fixed;left:0;top:0;width:220px;height:100%;background:var(--color-background-primary);border-right:0.5px solid var(--color-border-tertiary);padding:1.25rem 0;display:flex;flex-direction:column;}
+.logo{padding:0 1.25rem 1.25rem;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1rem;}
+.logo-text{font-size:16px;font-weight:500;color:var(--color-text-primary);}
+.logo-sub{font-size:11px;color:var(--color-text-tertiary);}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 1.25rem;font-size:13px;color:var(--color-text-secondary);cursor:pointer;border-radius:0;}
+.nav-item.active{background:var(--color-background-secondary);color:var(--color-text-primary);font-weight:500;}
+.nav-item i{font-size:17px;}
+.role-tag{margin:auto 1.25rem 1rem;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px;display:flex;align-items:center;gap:8px;}
+.avatar{width:28px;height:28px;border-radius:50%;background:#AFA9EC;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#26215C;}
+.main{margin-left:220px;padding:1.75rem 2rem;min-height:100vh;background:var(--color-background-tertiary);}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem;}
+.page-title{font-size:18px;font-weight:500;}
+.badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;}
+.badge-info{background:#E6F1FB;color:#0C447C;}
+.badge-warn{background:#FAEEDA;color:#633806;}
+.badge-success{background:#EAF3DE;color:#27500A;}
+.badge-draft{background:var(--color-background-secondary);color:var(--color-text-secondary);}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem;}
+.metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;}
+.metric-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:6px;}
+.metric-value{font-size:22px;font-weight:500;}
+.goal-list{display:flex;flex-direction:column;gap:10px;}
+.goal-card{background:var(--color-background-primary);border-radius:var(--border-radius-lg);border:0.5px solid var(--color-border-tertiary);padding:1rem 1.25rem;}
+.goal-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.goal-title{font-size:14px;font-weight:500;flex:1;padding-right:12px;}
+.goal-meta{display:flex;gap:8px;align-items:center;margin-bottom:10px;}
+.tag{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--color-background-secondary);color:var(--color-text-secondary);}
+.progress-row{display:flex;align-items:center;gap:10px;}
+.progress-bar-bg{flex:1;height:5px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden;}
+.progress-bar-fill{height:100%;border-radius:3px;}
+.progress-val{font-size:12px;color:var(--color-text-secondary);min-width:32px;text-align:right;}
+.section-label{font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;}
+.qbar{display:flex;gap:6px;margin-top:8px;}
+.q{font-size:11px;padding:2px 8px;border-radius:4px;background:var(--color-background-secondary);color:var(--color-text-tertiary);}
+.q.done{background:#EAF3DE;color:#3B6D11;}
+.q.active{background:#E6F1FB;color:#185FA5;}
+</style>
+
+<div style="display:flex;min-height:600px;">
+  <div class="sidebar">
+    <div class="logo">
+      <div class="logo-text">AtomQuest</div>
+      <div class="logo-sub">Goal Tracker</div>
+    </div>
+    <div class="nav-item active"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>My goals</div>
+    <div class="nav-item"><i class="ti ti-chart-bar" aria-hidden="true"></i>Progress</div>
+    <div class="nav-item"><i class="ti ti-calendar" aria-hidden="true"></i>Check-ins</div>
+    <div class="nav-item"><i class="ti ti-file-text" aria-hidden="true"></i>Reports</div>
+    <div class="nav-item"><i class="ti ti-settings" aria-hidden="true"></i>Settings</div>
+    <div class="role-tag">
+      <div class="avatar">AS</div>
+      <div>
+        <div style="font-size:12px;font-weight:500;">Arjun Singh</div>
+        <div style="font-size:11px;color:var(--color-text-tertiary);">Employee</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div class="page-title">My goals — FY 2025-26</div>
+        <div style="font-size:13px;color:var(--color-text-secondary);margin-top:3px;">Active quarter: <strong>Q1</strong> · Jul–Sep 2025</div>
+      </div>
+      <button style="font-size:13px;display:flex;align-items:center;gap:6px;"><i class="ti ti-plus" aria-hidden="true"></i>Add goal</button>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><div class="metric-label">Goals created</div><div class="metric-value">5 <span style="font-size:14px;color:var(--color-text-tertiary);">/ 8</span></div></div>
+      <div class="metric"><div class="metric-label">Weightage used</div><div class="metric-value">100%</div></div>
+      <div class="metric"><div class="metric-label">Overall progress</div><div class="metric-value">62%</div></div>
+      <div class="metric"><div class="metric-label">Status</div><div class="metric-value" style="font-size:14px;"><span class="badge badge-success">Approved</span></div></div>
+    </div>
+
+    <div class="section-label">Goal sheet</div>
+    <div class="goal-list">
+
+      <div class="goal-card">
+        <div class="goal-header">
+          <div class="goal-title">Achieve monthly sales revenue of ₹50L</div>
+          <span class="badge badge-success">On track</span>
+        </div>
+        <div class="goal-meta">
+          <span class="tag">Revenue</span>
+          <span class="tag">Numeric (min)</span>
+          <span class="tag" style="font-weight:500;">30%</span>
+        </div>
+        <div class="progress-row">
+          <div style="font-size:12px;color:var(--color-text-secondary);width:80px;">Q1 actual</div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:78%;background:#3B6D11;"></div></div>
+          <div class="progress-val">78%</div>
+        </div>
+        <div class="qbar"><span class="q done">Q1</span><span class="q active">Q2</span><span class="q">Q3</span><span class="q">Q4</span></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-header">
+          <div class="goal-title">Reduce customer onboarding TAT to 3 days</div>
+          <span class="badge badge-warn">Needs attention</span>
+        </div>
+        <div class="goal-meta">
+          <span class="tag">Operations</span>
+          <span class="tag">Numeric (max)</span>
+          <span class="tag" style="font-weight:500;">25%</span>
+        </div>
+        <div class="progress-row">
+          <div style="font-size:12px;color:var(--color-text-secondary);width:80px;">Q1 actual</div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:45%;background:#BA7517;"></div></div>
+          <div class="progress-val">45%</div>
+        </div>
+        <div class="qbar"><span class="q done">Q1</span><span class="q active">Q2</span><span class="q">Q3</span><span class="q">Q4</span></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-header">
+          <div class="goal-title">Complete CRM migration by Sep 30</div>
+          <span class="badge badge-success">Completed</span>
+        </div>
+        <div class="goal-meta">
+          <span class="tag">Technology</span>
+          <span class="tag">Timeline</span>
+          <span class="tag" style="font-weight:500;">20%</span>
+        </div>
+        <div class="progress-row">
+          <div style="font-size:12px;color:var(--color-text-secondary);width:80px;">Q1 actual</div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;background:#3B6D11;"></div></div>
+          <div class="progress-val">100%</div>
+        </div>
+        <div class="qbar"><span class="q done">Q1</span><span class="q">Q2</span><span class="q">Q3</span><span class="q">Q4</span></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-header">
+          <div class="goal-title">Zero safety incidents in the quarter</div>
+          <span class="badge badge-success">On track</span>
+        </div>
+        <div class="goal-meta">
+          <span class="tag">Safety</span>
+          <span class="tag">Zero</span>
+          <span class="tag" style="font-weight:500;">15%</span>
+        </div>
+        <div class="progress-row">
+          <div style="font-size:12px;color:var(--color-text-secondary);width:80px;">Q1 actual</div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:100%;background:#3B6D11;"></div></div>
+          <div class="progress-val">100%</div>
+        </div>
+        <div class="qbar"><span class="q done">Q1</span><span class="q active">Q2</span><span class="q">Q3</span><span class="q">Q4</span></div>
+      </div>
+
+      <div class="goal-card">
+        <div class="goal-header">
+          <div class="goal-title">Achieve NPS score of 75+</div>
+          <span class="badge badge-draft">Not started</span>
+        </div>
+        <div class="goal-meta">
+          <span class="tag">Customer</span>
+          <span class="tag">Numeric (min)</span>
+          <span class="tag" style="font-weight:500;">10%</span>
+        </div>
+        <div class="progress-row">
+          <div style="font-size:12px;color:var(--color-text-secondary);width:80px;">Q2 actual</div>
+          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:0%;background:#888;"></div></div>
+          <div class="progress-val">—</div>
+        </div>
+        <div class="qbar"><span class="q">Q1</span><span class="q active">Q2</span><span class="q">Q3</span><span class="q">Q4</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>

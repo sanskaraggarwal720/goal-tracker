@@ -1,0 +1,155 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.main{padding:1.5rem 2rem;background:var(--color-background-tertiary);min-height:580px;}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.page-title{font-size:18px;font-weight:500;}
+.badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500;}
+.badge-warn{background:#FAEEDA;color:#633806;}
+.badge-success{background:#EAF3DE;color:#27500A;}
+.badge-draft{background:var(--color-background-secondary);color:var(--color-text-secondary);}
+.badge-danger{background:#FCEBEB;color:#791F1F;}
+.two-col{display:grid;grid-template-columns:280px 1fr;gap:16px;}
+.panel{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;}
+.panel-header{padding:12px 14px;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:space-between;}
+.emp-item{padding:11px 14px;border-bottom:0.5px solid var(--color-border-tertiary);cursor:pointer;display:flex;align-items:center;gap:10px;}
+.emp-item.active{background:var(--color-background-secondary);}
+.emp-item:last-child{border-bottom:none;}
+.avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;}
+.av1{background:#EEEDFE;color:#3C3489;}
+.av2{background:#E1F5EE;color:#085041;}
+.av3{background:#FAEEDA;color:#633806;}
+.emp-name{font-size:13px;font-weight:500;}
+.emp-sub{font-size:11px;color:var(--color-text-tertiary);}
+.detail-panel{padding:1.25rem;}
+.detail-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.detail-name{font-size:15px;font-weight:500;}
+.goal-row{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px 14px;margin-bottom:8px;}
+.goal-row-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;}
+.goal-row-title{font-size:13px;font-weight:500;flex:1;padding-right:10px;}
+.goal-row-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.tag{font-size:11px;padding:2px 7px;border-radius:20px;background:var(--color-background-secondary);color:var(--color-text-secondary);}
+.inline-edit{display:flex;align-items:center;gap:8px;margin-top:8px;}
+.inline-edit label{font-size:12px;color:var(--color-text-secondary);min-width:80px;}
+.inline-edit input{width:80px;font-size:12px;padding:3px 6px;}
+.weight-total{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 12px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;font-size:13px;}
+.actions-row{display:flex;gap:8px;margin-top:1rem;}
+.btn-approve{background:#3B6D11;color:#fff;border:none;padding:7px 18px;border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:5px;}
+.btn-rework{color:#A32D2D;border-color:#A32D2D;font-size:13px;display:flex;align-items:center;gap:5px;}
+.comment-box{border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px;font-size:12px;color:var(--color-text-secondary);margin-top:8px;width:100%;}
+</style>
+
+<div class="main">
+  <div class="topbar">
+    <div>
+      <div class="page-title">Pending approvals</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);margin-top:3px;">3 employees awaiting review · FY 2025-26</div>
+    </div>
+    <span class="badge badge-warn"><i class="ti ti-clock" aria-hidden="true"></i> 3 pending</span>
+  </div>
+
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-header">Team submissions <span style="color:var(--color-text-tertiary);font-weight:400;">3 / 5</span></div>
+      <div class="emp-item active">
+        <div class="avatar av1">AS</div>
+        <div>
+          <div class="emp-name">Arjun Singh</div>
+          <div class="emp-sub">5 goals · 100% weightage</div>
+        </div>
+        <span class="badge badge-warn" style="margin-left:auto;">Pending</span>
+      </div>
+      <div class="emp-item">
+        <div class="avatar av2">NP</div>
+        <div>
+          <div class="emp-name">Neha Patel</div>
+          <div class="emp-sub">4 goals · 100% weightage</div>
+        </div>
+        <span class="badge badge-warn" style="margin-left:auto;">Pending</span>
+      </div>
+      <div class="emp-item">
+        <div class="avatar av3">VR</div>
+        <div>
+          <div class="emp-name">Vikram Rao</div>
+          <div class="emp-sub">6 goals · 100% weightage</div>
+        </div>
+        <span class="badge badge-warn" style="margin-left:auto;">Pending</span>
+      </div>
+      <div class="emp-item" style="opacity:.5;">
+        <div class="avatar" style="background:var(--color-background-secondary);color:var(--color-text-tertiary);">SD</div>
+        <div>
+          <div class="emp-name">Shreya Desai</div>
+          <div class="emp-sub">5 goals · 100% weightage</div>
+        </div>
+        <span class="badge badge-success" style="margin-left:auto;">Approved</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="detail-panel">
+        <div class="detail-top">
+          <div>
+            <div class="detail-name">Arjun Singh</div>
+            <div style="font-size:12px;color:var(--color-text-tertiary);">Sales · Submitted 2 days ago</div>
+          </div>
+          <span class="badge badge-warn">Awaiting approval</span>
+        </div>
+
+        <div class="weight-total">
+          <span>Total weightage</span>
+          <span style="font-weight:500;color:#3B6D11;">100% ✓</span>
+        </div>
+
+        <div class="goal-row">
+          <div class="goal-row-top">
+            <div class="goal-row-title">Achieve monthly sales revenue of ₹50L</div>
+          </div>
+          <div class="goal-row-meta">
+            <span class="tag">Revenue growth</span><span class="tag">Numeric (min)</span><span class="tag" style="font-weight:500;">30%</span>
+          </div>
+          <div class="inline-edit">
+            <label>Target</label>
+            <input type="number" value="50" />
+            <span style="font-size:12px;color:var(--color-text-tertiary);">Lakhs ₹</span>
+            <label>Weight</label>
+            <input type="number" value="30" />
+            <span style="font-size:12px;color:var(--color-text-tertiary);">%</span>
+          </div>
+        </div>
+
+        <div class="goal-row">
+          <div class="goal-row-top">
+            <div class="goal-row-title">Reduce customer onboarding TAT to 3 days</div>
+          </div>
+          <div class="goal-row-meta">
+            <span class="tag">Ops efficiency</span><span class="tag">Numeric (max)</span><span class="tag" style="font-weight:500;">25%</span>
+          </div>
+          <div class="inline-edit">
+            <label>Target</label>
+            <input type="number" value="3" />
+            <span style="font-size:12px;color:var(--color-text-tertiary);">Days</span>
+            <label>Weight</label>
+            <input type="number" value="25" />
+            <span style="font-size:12px;color:var(--color-text-tertiary);">%</span>
+          </div>
+        </div>
+
+        <div class="goal-row" style="opacity:.7;">
+          <div class="goal-row-top">
+            <div class="goal-row-title">Complete CRM migration by Sep 30</div>
+          </div>
+          <div class="goal-row-meta">
+            <span class="tag">Technology</span><span class="tag">Timeline</span><span class="tag" style="font-weight:500;">20%</span><span class="tag" style="background:#E1F5EE;color:#085041;">Shared</span>
+          </div>
+        </div>
+
+        <textarea class="comment-box" rows="2" placeholder="Add a comment for the employee (optional)..."></textarea>
+
+        <div class="actions-row">
+          <button class="btn-rework"><i class="ti ti-arrow-back-up" aria-hidden="true"></i> Return for rework</button>
+          <button class="btn-approve" style="margin-left:auto;"><i class="ti ti-check" aria-hidden="true"></i> Approve all goals</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

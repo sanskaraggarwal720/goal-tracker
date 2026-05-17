@@ -1,0 +1,179 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.main{padding:1.5rem 2rem;background:var(--color-background-tertiary);min-height:640px;}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.page-title{font-size:18px;font-weight:500;}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem;}
+.metric{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:1rem;}
+.metric-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:6px;}
+.metric-value{font-size:22px;font-weight:500;}
+.metric-delta{font-size:11px;margin-top:3px;}
+.up{color:#3B6D11;} .down{color:#A32D2D;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.1rem 1.25rem;}
+.card-title{font-size:13px;font-weight:500;margin-bottom:1rem;}
+.chart-area{position:relative;}
+.bar-group{display:flex;align-items:flex-end;gap:4px;height:140px;padding-bottom:20px;position:relative;}
+.bar-wrap{display:flex;flex-direction:column;align-items:center;flex:1;height:100%;justify-content:flex-end;gap:2px;}
+.bar{border-radius:3px 3px 0 0;width:100%;max-width:32px;}
+.bar-label{font-size:10px;color:var(--color-text-tertiary);margin-top:4px;}
+.legend{display:flex;gap:12px;margin-top:8px;}
+.leg-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;}
+.leg-item{font-size:11px;color:var(--color-text-secondary);display:flex;align-items:center;}
+.heatmap-grid{display:grid;grid-template-columns:80px repeat(4,1fr);gap:4px;}
+.hm-cell{border-radius:4px;padding:6px 4px;text-align:center;font-size:11px;font-weight:500;}
+.hm-header{font-size:11px;color:var(--color-text-tertiary);text-align:center;padding:4px;}
+.hm-row-label{font-size:12px;color:var(--color-text-secondary);display:flex;align-items:center;}
+.emp-prog{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.ep-avatar{width:26px;height:26px;border-radius:50%;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;}
+.ep-bar-bg{flex:1;height:6px;border-radius:3px;background:var(--color-background-secondary);overflow:hidden;}
+.ep-bar{height:100%;border-radius:3px;}
+.badge{font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;}
+.btn-export{font-size:13px;display:flex;align-items:center;gap:5px;padding:6px 14px;}
+</style>
+
+<div class="main">
+  <div class="topbar">
+    <div>
+      <div class="page-title">Analytics — FY 2025-26</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);margin-top:3px;">Organisation-wide goal performance</div>
+    </div>
+    <button class="btn-export"><i class="ti ti-download" aria-hidden="true"></i> Export report</button>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-label">Avg completion</div>
+      <div class="metric-value">67%</div>
+      <div class="metric-delta up">↑ 12% vs Q1</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Goals on track</div>
+      <div class="metric-value">38</div>
+      <div class="metric-delta up">↑ 5 since last quarter</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Check-ins done</div>
+      <div class="metric-value">4 / 5</div>
+      <div class="metric-delta" style="color:var(--color-text-tertiary);">Q2 in progress</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Escalations open</div>
+      <div class="metric-value">2</div>
+      <div class="metric-delta down">↑ 1 new this week</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Quarterly achievement trend</div>
+      <div class="chart-area">
+        <div class="bar-group" style="border-bottom:0.5px solid var(--color-border-tertiary);">
+          <div class="bar-wrap">
+            <div class="bar" style="height:52%;background:#B5D4F4;"></div>
+            <div class="bar" style="height:48%;background:#3B6D11;"></div>
+            <div class="bar-label">Q1</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar" style="height:65%;background:#B5D4F4;"></div>
+            <div class="bar" style="height:60%;background:#3B6D11;"></div>
+            <div class="bar-label">Q2</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar" style="height:72%;background:#B5D4F4;"></div>
+            <div class="bar" style="height:10%;background:#D3D1C7;opacity:.5;"></div>
+            <div class="bar-label">Q3</div>
+          </div>
+          <div class="bar-wrap">
+            <div class="bar" style="height:80%;background:#B5D4F4;"></div>
+            <div class="bar" style="height:4%;background:#D3D1C7;opacity:.5;"></div>
+            <div class="bar-label">Q4</div>
+          </div>
+        </div>
+        <div class="legend">
+          <span class="leg-item"><span class="leg-dot" style="background:#B5D4F4;"></span>Target</span>
+          <span class="leg-item"><span class="leg-dot" style="background:#3B6D11;"></span>Actual</span>
+          <span class="leg-item"><span class="leg-dot" style="background:#D3D1C7;opacity:.6;"></span>Forecast</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Completion heatmap — by dept &amp; quarter</div>
+      <div class="heatmap-grid">
+        <div></div>
+        <div class="hm-header">Q1</div><div class="hm-header">Q2</div><div class="hm-header">Q3</div><div class="hm-header">Q4</div>
+
+        <div class="hm-row-label">Sales</div>
+        <div class="hm-cell" style="background:#639922;color:#173404;">82%</div>
+        <div class="hm-cell" style="background:#97C459;color:#27500A;">68%</div>
+        <div class="hm-cell" style="background:#D3D1C7;color:#5F5E5A;">—</div>
+        <div class="hm-cell" style="background:#D3D1C7;color:#5F5E5A;">—</div>
+
+        <div class="hm-row-label">Ops</div>
+        <div class="hm-cell" style="background:#97C459;color:#27500A;">71%</div>
+        <div class="hm-cell" style="background:#C0DD97;color:#3B6D11;">55%</div>
+        <div class="hm-cell" style="background:#D3D1C7;color:#5F5E5A;">—</div>
+        <div class="hm-cell" style="background:#D3D1C7;color:#5F5E5A;">—</div>
+
+        <div class="hm-row-label">Tech</div>
+        <div class="hm-cell" style="background:#C0DD97;color:#3B6D11;">60%</div>
+        <div class="hm-cell" style="background:#EAF3DE;color:#639922;">42%</div>
+        <div class="hm-cell" style="background:#D3D1C7;color:#5F5E5A;">—</div>
+        <div class="hm-cell" style="background:#D3D1C7;color:#5F5E5A;">—</div>
+
+        <div class="hm-row-label">Finance</div>
+        <div class="hm-cell" style="background:#639922;color:#173404;">88%</div>
+        <div class="hm-cell" style="background:#97C459;color:#27500A;">74%</div>
+        <div class="hm-cell" style="background:#D3D1C7;color:#5F5E5A;">—</div>
+        <div class="hm-cell" style="background:#D3D1C7;color:#5F5E5A;">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Individual progress — Q2 snapshot</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 24px;">
+      <div>
+        <div class="emp-prog">
+          <div class="ep-avatar" style="background:#EEEDFE;color:#3C3489;">AS</div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span>Arjun Singh</span><span>78%</span></div>
+            <div class="ep-bar-bg"><div class="ep-bar" style="width:78%;background:#3B6D11;"></div></div>
+          </div>
+        </div>
+        <div class="emp-prog">
+          <div class="ep-avatar" style="background:#E1F5EE;color:#085041;">NP</div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span>Neha Patel</span><span>65%</span></div>
+            <div class="ep-bar-bg"><div class="ep-bar" style="width:65%;background:#3B6D11;"></div></div>
+          </div>
+        </div>
+        <div class="emp-prog">
+          <div class="ep-avatar" style="background:#FAEEDA;color:#633806;">VR</div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span>Vikram Rao</span><span>41%</span></div>
+            <div class="ep-bar-bg"><div class="ep-bar" style="width:41%;background:#BA7517;"></div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="emp-prog">
+          <div class="ep-avatar" style="background:#FAECE7;color:#712B13;">SD</div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span>Shreya Desai</span><span>88%</span></div>
+            <div class="ep-bar-bg"><div class="ep-bar" style="width:88%;background:#3B6D11;"></div></div>
+          </div>
+        </div>
+        <div class="emp-prog">
+          <div class="ep-avatar" style="background:#FBEAF0;color:#72243E;">KJ</div>
+          <div style="flex:1;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span>Karan Joshi</span><span>53%</span></div>
+            <div class="ep-bar-bg"><div class="ep-bar" style="width:53%;background:#BA7517;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

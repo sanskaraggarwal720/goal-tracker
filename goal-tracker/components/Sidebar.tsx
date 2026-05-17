@@ -20,6 +20,7 @@ const LINKS = {
     { label: 'Analytics', href: '/admin/dashboard', icon: '📈' },
     { label: 'Shared Goals', href: '/admin/shared-goals', icon: '🔗' },
     { label: 'Reports', href: '/admin/reports', icon: '📄' },
+    { label: 'Audit Trail', href: '/admin/audit-log', icon: '📝' },
     { label: 'Cycles', href: '/admin/cycles', icon: '🔄' },
   ]
 };

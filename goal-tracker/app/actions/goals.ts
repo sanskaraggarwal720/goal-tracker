@@ -561,3 +561,97 @@ export async function fetchAllGoalsReport() {
     };
   });
 }
+
+export async function fetchAdminDashboardStats() {
+  const supabase = createClient();
+  
+  // 1. Get all approved goals
+  const { data: goals } = await supabase.from('goals').select('id, employee_id, target, uom, target_date, status').eq('status', 'approved');
+  
+  // 2. Get all employees
+  const { data: employees } = await supabase.from('users').select('id, name, department').eq('role', 'employee');
+  const empCount = employees?.length || 0;
+
+  // 3. Get all achievements for Q1 & Q2
+  const { data: achievements } = await supabase.from('achievements').select('goal_id, quarter, actual, actual_date, status');
+
+  let totalProgress = 0;
+  let goalsOnTrack = 0;
+  let goalsCount = goals?.length || 0;
+  
+  const empScores: Record<string, { total: number, count: number, name: string, dept: string }> = {};
+  
+  if (goals && achievements) {
+    goals.forEach(g => {
+      const q2Ach = achievements.find(a => a.goal_id === g.id && a.quarter === 'Q2');
+      const q1Ach = achievements.find(a => a.goal_id === g.id && a.quarter === 'Q1');
+      const latestAch = q2Ach || q1Ach;
+      
+      let prog = 0;
+      if (latestAch) {
+        prog = computeProgress(g.uom, (g.uom === 'timeline' ? g.target_date : g.target) as any, g.uom === 'timeline' ? latestAch.actual_date : latestAch.actual);
+        if (latestAch.status === 'on_track' || latestAch.status === 'completed') {
+          goalsOnTrack++;
+        }
+      }
+      totalProgress += prog;
+
+      if (!empScores[g.employee_id]) {
+        const emp = employees?.find(e => e.id === g.employee_id);
+        empScores[g.employee_id] = { total: 0, count: 0, name: emp?.name || '', dept: emp?.department || '' };
+      }
+      empScores[g.employee_id].total += prog;
+      empScores[g.employee_id].count += 1;
+    });
+  }
+
+  const avgCompletion = goalsCount > 0 ? Math.round(totalProgress / goalsCount) : 0;
+
+  // 4. Checkins done (unique employees who have a Q2 check-in by manager)
+  const { data: checkins } = await supabase.from('checkins').select('goal_id, quarter');
+  // Just counting total checkins for simplicity
+  const checkinsDone = checkins?.length || 0;
+
+  // 5. Individual progress mapping
+  const individualProgress = Object.values(empScores).map(e => ({
+    initials: e.name.split(' ').map(n => n[0]).join(''),
+    name: e.name,
+    score: Math.round(e.total / e.count),
+    color: 'bg-[#4B8B4B]',
+    avatarBg: 'bg-[#EAF2FF] text-[#2D66C2]'
+  })).sort((a, b) => b.score - a.score).slice(0, 5);
+
+  return {
+    avgCompletion,
+    goalsOnTrack,
+    checkinsDone,
+    totalEmployees: empCount,
+    escalationsOpen: 0, // Mocked
+    individualProgress
+  };
+}
+
+export async function fetchAuditLogs() {
+  const supabase = createClient();
+  
+  const { data, error } = await supabase
+    .from('audit_logs')
+    .select(`
+      id,
+      field,
+      old_value,
+      new_value,
+      changed_at,
+      users:changed_by (name, role),
+      goals:goal_id (title)
+    `)
+    .order('changed_at', { ascending: false })
+    .limit(50);
+    
+  if (error) {
+    console.error('Failed to fetch audit logs:', error);
+    return [];
+  }
+  
+  return data;
+}

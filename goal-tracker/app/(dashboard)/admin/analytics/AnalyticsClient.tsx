@@ -74,7 +74,11 @@ export function AnalyticsClient({ data }: { data: any }) {
                   paddingAngle={5}
                   dataKey="count"
                   nameKey="uom"
-                  label={({ uom, count }) => `${uom} (${count})`}
+                  label={(props: any) => {
+                    const name = props.payload?.uom ?? props.name;
+                    const val = props.payload?.count ?? props.value;
+                    return `${name} (${val})`;
+                  }}
                 >
                   {data.uomDistribution.map((entry: any, index: number) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

@@ -148,7 +148,7 @@ export async function fetchManagerApprovals() {
 
   if (teamError || !team) {
     console.error('Error fetching team:', teamError);
-    return [];
+    return { result: [], debug: { managerId, teamError: teamError?.message || null, rawTeamCount: 0, allUsers } };
   }
 
   // Fetch goals for these employees
@@ -170,7 +170,7 @@ export async function fetchManagerApprovals() {
 
   if (goalsError) {
     console.error('Error fetching team goals:', goalsError);
-    return [];
+    return { result: [], debug: { managerId, teamError: null, rawTeamCount: team?.length || 0, allUsers } };
   }
 
   // Aggregate goals per employee
@@ -225,7 +225,7 @@ export async function fetchManagerApprovals() {
     result, 
     debug: { 
       managerId, 
-      teamError: teamError?.message || null, 
+      teamError: null,
       rawTeamCount: team?.length || 0,
       allUsers 
     } 
@@ -548,9 +548,10 @@ export async function fetchAllGoalsReport() {
       progress = computeProgress(g.uom, (g.uom === 'timeline' ? g.target_date : g.target) as any, g.uom === 'timeline' ? latestAch.actual_date : latestAch.actual);
     }
 
+    const userRecord = Array.isArray(g.users) ? g.users[0] : g.users;
     return {
-      emp: g.users?.name,
-      dept: g.users?.department,
+      emp: userRecord?.name,
+      dept: userRecord?.department,
       goal: g.title,
       target: g.uom === 'timeline' ? g.target_date : g.target,
       q1: getAch('Q1'),

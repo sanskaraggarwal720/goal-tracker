@@ -14,8 +14,8 @@ export function AchievementEntry({ goal, quarter }: { goal: any, quarter: string
 
   const progress = (actual !== '' && actual !== undefined) ? computeProgress(goal.uom, goal.target, uomToNumber(goal.uom, actual)) : 0;
 
-  function uomToNumber(uom: string, val: string) {
-    if (uom === 'timeline') return val;
+  function uomToNumber(uom: string, val: string): number | Date {
+    if (uom === 'timeline') return new Date(val);
     return Number(val);
   }
 

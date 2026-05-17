@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 const ROLES = [
-  { id: 'employee', label: 'Employee',  color: '#185FA5', initials: 'AS', route: '/employee/goals' },
-  { id: 'manager',  label: 'Manager',   color: '#3B6D11', initials: 'RM', route: '/manager/approvals' },
-  { id: 'admin',    label: 'Admin/HR',  color: '#7F77DD', initials: 'PS', route: '/admin/dashboard' },
+  { id: 'employee', label: 'Employee',  color: '#185FA5', initials: 'AS', route: '/employee/goals', email: 'arjun@demo.com' },
+  { id: 'manager',  label: 'Manager',   color: '#3B6D11', initials: 'RM', route: '/manager/approvals', email: 'rajesh@demo.com' },
+  { id: 'admin',    label: 'Admin/HR',  color: '#7F77DD', initials: 'PS', route: '/admin/dashboard', email: 'priya@demo.com' },
 ];
 
 export function DemoRoleSwitcher({ currentRole }: { currentRole: string }) {
@@ -16,9 +16,9 @@ export function DemoRoleSwitcher({ currentRole }: { currentRole: string }) {
 
   const switchTo = (role: typeof ROLES[number]) => {
     document.cookie = `demo_role=${role.id}; path=/`;
+    document.cookie = `demo_user_email=${role.email}; path=/`;
     setOpen(false);
-    router.push(role.route);
-    router.refresh(); // Forces Next.js to re-fetch Server Components (including layout.tsx) so the sidebar updates
+    window.location.href = role.route;
   };
 
   return (
@@ -74,6 +74,38 @@ export function DemoRoleSwitcher({ currentRole }: { currentRole: string }) {
                 )}
               </motion.button>
             ))}
+            <div style={{ margin: '6px 0', borderTop: '1px solid #f3f4f6' }} />
+            <motion.button
+              initial={{ opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              onClick={() => {
+                document.cookie = 'demo_role=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+                document.cookie = 'demo_user_email=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+                setOpen(false);
+                window.location.href = '/';
+              }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '10px',
+                width: '100%', padding: '8px 10px', borderRadius: '8px',
+                background: '#fee2e2', color: '#dc2626',
+                border: 'none', cursor: 'pointer', textAlign: 'left',
+                fontSize: '13px', fontWeight: 600
+              }}
+              whileHover={{ background: '#fecaca' }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <div style={{
+                width: 28, height: 28, borderRadius: '50%',
+                background: '#f8717120', color: '#dc2626',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '12px'
+              }}>🚪</div>
+              <div>
+                <div style={{ fontSize: '13px', fontWeight: 600 }}>Sign Out</div>
+                <div style={{ fontSize: '11px', color: '#ef4444' }}>Return to login screen</div>
+              </div>
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>

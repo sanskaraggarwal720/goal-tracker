@@ -54,6 +54,11 @@ INSERT INTO public.goals (id, cycle_id, employee_id, thrust_area_id, title, desc
 -- Update dates for timeline goals
 UPDATE public.goals SET target_date = '2025-09-30' WHERE id = 'dd000000-0000-0000-0000-000000000003';
 
+-- Goals for Neha Patel (Employee)
+INSERT INTO public.goals (id, cycle_id, employee_id, thrust_area_id, title, description, uom, target, weightage, status) VALUES
+('dd000000-0000-0000-0000-000000000006', 'cc000000-0000-0000-0000-000000000001', '55555555-5555-5555-5555-555555555555', 'aa000000-0000-0000-0000-000000000001', 'Expand enterprise accounts revenue by ₹30L', 'Focus on key enterprise client acquisitions.', 'numeric_min', 30, 40, 'approved'),
+('dd000000-0000-0000-0000-000000000007', 'cc000000-0000-0000-0000-000000000001', '55555555-5555-5555-5555-555555555555', 'aa000000-0000-0000-0000-000000000004', 'Maintain client retention rate above 90%', 'Quarterly account relationship check-ins.', 'numeric_min', 90, 40, 'approved');
+
 
 -- 5. Achievements for Arjun (Q1 & Q2 demo)
 INSERT INTO public.achievements (goal_id, quarter, actual, status) VALUES

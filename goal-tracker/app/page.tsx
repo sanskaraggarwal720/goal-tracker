@@ -152,7 +152,21 @@ export default function Entrance() {
                 exit={{ opacity: 0, x: 20 }}
                 className="relative z-10 max-w-md mx-auto bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8"
               >
-                <form onSubmit={(e) => { e.preventDefault(); router.push('/employee/goals'); }} className="flex flex-col gap-5 text-left">
+                <form onSubmit={(e) => { 
+                  e.preventDefault(); 
+                  const form = e.currentTarget;
+                  const emailInput = form.querySelector('input[type="email"]') as HTMLInputElement;
+                  const email = emailInput?.value || 'arjun@demo.com';
+                  
+                  let role = 'employee';
+                  let route = '/employee/goals';
+                  if (email.toLowerCase().includes('priya')) { role = 'admin'; route = '/admin/dashboard'; }
+                  else if (email.toLowerCase().includes('rajesh') || email.toLowerCase().includes('anjali')) { role = 'manager'; route = '/manager/approvals'; }
+
+                  document.cookie = `demo_user_email=${email}; path=/`;
+                  document.cookie = `demo_role=${role}; path=/`;
+                  window.location.href = route;
+                }} className="flex flex-col gap-5 text-left">
                   <div>
                     <label className="block text-sm font-bold text-gray-300 mb-2">Work Email</label>
                     <input type="email" placeholder="you@company.com" required className="w-full bg-black/50 border border-white/10 rounded-xl p-3.5 text-white outline-none focus:border-blue-500 transition-colors" />

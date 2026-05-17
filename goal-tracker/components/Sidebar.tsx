@@ -33,9 +33,21 @@ const USER_PROFILES = {
   admin: { name: 'Priya Sharma', roleLabel: 'Admin', initials: 'PS', color: 'bg-[#c084fc] text-[#4c1d95]' }
 };
 
-export function Sidebar({ role }: { role: string }) {
+const FULL_PROFILES: Record<string, any> = {
+  'priya@demo.com': { name: 'Priya Sharma', roleLabel: 'Admin', initials: 'PS', color: 'bg-[#c084fc] text-[#4c1d95]' },
+  'rajesh@demo.com': { name: 'Rajesh Mehta', roleLabel: 'Manager', initials: 'RM', color: 'bg-[#4ade80] text-[#14532d]' },
+  'anjali@demo.com': { name: 'Anjali Gupta', roleLabel: 'Manager', initials: 'AG', color: 'bg-[#4ade80] text-[#14532d]' },
+  'arjun@demo.com': { name: 'Arjun Singh', roleLabel: 'Employee', initials: 'AS', color: 'bg-[#A8A1F9] text-[#1E1E1E]' },
+  'neha@demo.com': { name: 'Neha Patel', roleLabel: 'Employee', initials: 'NP', color: 'bg-[#A8A1F9] text-[#1E1E1E]' },
+  'vikram@demo.com': { name: 'Vikram Rao', roleLabel: 'Employee', initials: 'VR', color: 'bg-[#A8A1F9] text-[#1E1E1E]' },
+  'shreya@demo.com': { name: 'Shreya Desai', roleLabel: 'Employee', initials: 'SD', color: 'bg-[#A8A1F9] text-[#1E1E1E]' },
+  'karan@demo.com': { name: 'Karan Joshi', roleLabel: 'Employee', initials: 'KJ', color: 'bg-[#A8A1F9] text-[#1E1E1E]' }
+};
+
+export function Sidebar({ role, email }: { role: string; email?: string }) {
   const pathname = usePathname();
   const links = LINKS[role as keyof typeof LINKS] || LINKS.employee;
+  const profile = (email && FULL_PROFILES[email.toLowerCase()]) || USER_PROFILES[role as keyof typeof USER_PROFILES] || USER_PROFILES.employee;
 
   return (
     <aside className="w-64 bg-[rgb(var(--sidebar-bg))] border-r border-[rgb(var(--border))] fixed h-full flex flex-col transition-colors z-20">
@@ -68,15 +80,15 @@ export function Sidebar({ role }: { role: string }) {
       </div>
 
       <div className="p-4 m-3 mt-0 rounded-xl bg-gray-100 dark:bg-[#333] flex items-center gap-3">
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${USER_PROFILES[role as keyof typeof USER_PROFILES]?.color || USER_PROFILES.employee.color}`}>
-          {USER_PROFILES[role as keyof typeof USER_PROFILES]?.initials || USER_PROFILES.employee.initials}
+        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${profile.color}`}>
+          {profile.initials}
         </div>
         <div>
           <div className="text-sm font-bold text-[rgb(var(--text))]">
-            {USER_PROFILES[role as keyof typeof USER_PROFILES]?.name || USER_PROFILES.employee.name}
+            {profile.name}
           </div>
           <div className="text-xs text-gray-500 dark:text-gray-400">
-            {USER_PROFILES[role as keyof typeof USER_PROFILES]?.roleLabel || USER_PROFILES.employee.roleLabel}
+            {profile.roleLabel}
           </div>
         </div>
       </div>

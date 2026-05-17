@@ -10,8 +10,9 @@ export function GoalForm({ onSave, onCancel, currentTotalWeight = 0 }: { onSave:
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const totalWeight = currentTotalWeight + weightage;
+  const isValid = totalWeight <= 100;
   const isPerfect = totalWeight === 100;
-  const weightColor = isPerfect ? 'text-green-500' : totalWeight > 100 ? 'text-red-500' : 'text-orange-500';
+  const weightColor = isPerfect ? 'text-green-500' : totalWeight > 100 ? 'text-red-500' : 'text-blue-500';
 
   async function handleAction(formData: FormData) {
     setIsSubmitting(true);
@@ -108,7 +109,7 @@ Measure customer satisfaction quarterly via post-interaction NPS survey. Target 
           <button type="button" onClick={onCancel} className="px-6 py-3 rounded-xl border border-[rgb(var(--border))] font-bold text-sm hover:bg-gray-100 dark:hover:bg-[#333] transition-colors">
             Cancel
           </button>
-          <button type="submit" disabled={!isPerfect || isSubmitting} className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${isPerfect ? 'bg-[#22c55e] text-white hover:bg-[#16a34a] shadow-lg shadow-green-500/20' : 'bg-gray-200 dark:bg-[#333] text-gray-400 cursor-not-allowed'}`}>
+          <button type="submit" disabled={!isValid || isSubmitting} className={`px-6 py-3 rounded-xl font-bold text-sm transition-all ${isValid ? 'bg-[#3b82f6] text-white hover:bg-[#2563eb] shadow-lg shadow-blue-500/20' : 'bg-gray-200 dark:bg-[#333] text-gray-400 cursor-not-allowed'}`}>
             {isSubmitting ? 'Saving...' : 'Save goal'}
           </button>
         </div>
